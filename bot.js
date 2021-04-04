@@ -2,7 +2,7 @@ const Discord = require("discord.js"),
     client = new Discord.Client(),
     settings = {
         prefix: "?!",
-        token: "BOT TOKEN"
+        token: "BOT-TOKEN"
     };
 
 const { Player } = require("discord-player");
