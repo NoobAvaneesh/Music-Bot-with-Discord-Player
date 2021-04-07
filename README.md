@@ -1,11 +1,11 @@
 ## Music-Bot-with-Discord-Player
 A free Discord Music bot, made by wolletje01#9999 (NO API KEYS). You can copy everything. Free to use, for everyone.
 
-Please join my discord support server:
-https://discord.gg/5NTcsahFBh
-Or add the bot here:
+Please join my discord support server: \n
+https://discord.gg/5NTcsahFBh \n
+Or add the bot here: \n
 http://148.251.162.137:4081/
-If that isnt working then use the discord link:
+If that isnt working then use the discord link: \n
 https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&permissions=8
 
 ### Requiremnts:
