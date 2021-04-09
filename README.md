@@ -4,11 +4,8 @@ A free Discord Music bot, made by wolletje01#9999 (NO API KEYS). You can copy ev
 Please join my discord support server: 
 https://discord.gg/5NTcsahFBh
 
-Or add the bot here: 
-http://148.251.162.137:4081/
+If that isnt working then use the discord link: https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&permissions=8
 
-If that isnt working then use the discord link: 
-https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&permissions=8
 
 ### Requiremnts:
 * `node`
