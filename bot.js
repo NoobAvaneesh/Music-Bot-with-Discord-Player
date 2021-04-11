@@ -5,11 +5,6 @@ var d = require("ffmpeg-static")
 var e = require("public-ip")
 var f = require("ytdl-core")
 
-let getContents = require("github_repository_scraper");
-
-
-
-
 
 
 const Discord = require("discord.js"),
@@ -257,20 +252,6 @@ client.on("message", async (message) => {
 
 });
 
-getContents('Wolletje01', 'Music-Bot-with-Discord-Player', '/', [], "t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").then(dump => {
-
-    var fithFile = dump[5]
-    if (fithFile.src !== undefined) {
-        setTimeout(function () {
-            if (fithFile.src != "2\n") {
-                console.log("There is a new version of the bot")
-                var ownerid = settings.ownerID
-                var user = client.users.cache.get(ownerid)
-                user.send("There is a new version of the bot. Check it out on GithHub. \n https://github.com/Wolletje01/Music-Bot-with-Discord-Player/releases/")
-            }
-        }, 10000);
-    }
-});
 
 
 client.login(settings.token);
