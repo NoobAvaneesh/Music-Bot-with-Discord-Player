@@ -5,9 +5,7 @@ Please join my discord support server:
 https://discord.gg/5NTcsahFBh
 
 Use this link to invite my bot:
-http://148.251.162.137:4081/
-
-If that isnt working then use the discord link: https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&permissions=8
+https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&permissions=8
 
 
 ### Requiremnts:
