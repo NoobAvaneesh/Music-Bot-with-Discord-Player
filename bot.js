@@ -25,9 +25,9 @@ const Discord = require("discord.js"),
     settings = {
         prefix: "?!",
         token: "your-bot-token",
-        ownerID: "372063501755088896",
+        ownerID: "your-owner-id",
         ip: "your-ip",
-        port: 80
+        port: port-you-want-to-use
     };
 
 http.createServer((req, res) => {
