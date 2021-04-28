@@ -24,9 +24,9 @@ const Discord = require("discord.js"),
     client = new Discord.Client(),
     settings = {
         prefix: "?!",
-        token: "NzU3MTYxODg0NTI4MTQ4NTAw.X2cX9A.TMEgh1jYHT9HCogMrJEelVGktfk",
+        token: "your-bot-token",
         ownerID: "372063501755088896",
-        ip: "80.100.188.40",
+        ip: "your-ip",
         port: 80
     };
 
