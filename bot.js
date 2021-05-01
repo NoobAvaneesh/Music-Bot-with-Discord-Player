@@ -7,7 +7,6 @@ var f = require("ytdl-core")
 var g = require("fs")
 var h = require("ytdl-core")
 var i = require("@discord-player/extractor");
-
 var url = require("url");
 const ytdl = require('ytdl-core');
 const publicIp = require('public-ip');
@@ -24,10 +23,10 @@ const Discord = require("discord.js"),
     client = new Discord.Client(),
     settings = {
         prefix: "?!",
-        token: "your-bot-token",
-        ownerID: "your-owner-id",
+        token: "Your-bot-token",
+        ownerID: "your-id",
         ip: "your-ip",
-        port: port-you-want-to-use
+        port: your-port //can be 443 or 80 or 8080 or every other port.
     };
 
 http.createServer((req, res) => {
@@ -82,13 +81,32 @@ const player = new Player(client);
 client.player = player;
 // add the trackStart event so when a song will be played this message will be sent
 var test;
-var messageDelete;
-client.on('messageDelete', (message) => {
-    if (message.author.bot != true) {
+client.on('messageDelete', async (message) => {
 
 
-        messageDelete = message
-    }
+
+    var allInfo = message
+    var useFull = allInfo.author.username + "#" + allInfo.author.discriminator + "\n" + allInfo.content
+    // directory path
+    const dir = './snipe/' + message.guild.id;
+
+    // create new directory
+    await fs.mkdir(dir, { recursive: true }, (err) => {
+        if (err) {
+            throw err;
+        }
+        console.log("Directory is created.");
+    });
+    var file = ("./snipe/" + message.guild.id + "/" + message.channel.id)
+    fs.writeFile((file + ".txt"), useFull, (err) => {
+        // throws an error, you could also catch it here
+        if (err) {
+            throw err;
+        }
+        // success case, the file was saved
+        console.log('Done');
+    });
+
 })
 
 client.player.on('trackAdd', (message, queue, track) => {
@@ -106,7 +124,7 @@ client.player.on('trackAdd', (message, queue, track) => {
 client.player.on('trackStart', (message, track) => message.channel.send(`Now playing ${track.title}`).then(msg => {
 
     if (test !== undefined && test !== null) {
-        console.log(test)
+
         test.delete();
     }
     test = msg
@@ -144,15 +162,176 @@ client.on("message", async (message) => {
     const command = args.shift().toLowerCase();
     var argAll = args.join(" ");
 
-   
+    if (command === "help") {
+        var content = (
+            settings.prefix + "av (@member) - Let the bot show an avatar.\n" +
+            settings.prefix + "say [text] - Let the bot say something you type.\n" +
+            settings.prefix + "esay [text] - Let the bot say something you type in embed.\n" +
+            settings.prefix + "games - Show universal join commands for games.\n" +
+            settings.prefix + "av-server - Show the server avatar. \n" +
+            settings.prefix + "serverinfo - Shows a lot of info about the current server. \n" +
+            settings.prefix + "snipe - Shows the last deleted message in a channel. \n" +
+            settings.prefix + "nick [text] - Change your nickname.\n" +
+            settings.prefix + "m - Get all the music commands.\n" +
+            settings.prefix + "help - Shows this.");
+
+        const helpEmbed = new Discord.MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle('Help')
+            .setTimestamp()
+            .setDescription(content)
+            .setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
+
+        message.channel.send(helpEmbed);
+    }
+    if (command === "av") {
+        if (message.mentions.members.size == 0) {
+            var avatarAuthor = message.author.avatarURL();
+            message.channel.send(avatarAuthor + " \n" + message.author.username + " does this because " + message.author.username + " is bored");
+        }
+        if (message.mentions.members.size > 0) {
+            var avatarMention = message.mentions.members.first().user.avatarURL()
+            message.channel.send(avatarMention);
+        }
+    }
+    if (command === "say") {
+        var user = message.author.username
+        message.channel.send(user + " says" + "\n" + argAll);
+    }
+    if (command === "esay") {
+        var user = message.author.username
+        const esayEmbed = new Discord.MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle(user + " says")
+            .setTimestamp()
+            .setDescription(argAll)
+            .setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
+        message.channel.send(esayEmbed);
+
+    }
+    if (command === "games") {
+        var gamesContent = ("Among us: steam:\/\/rungameid/945360 \n" +
+            "ARK: steam: \/\/rungameid/346110 \n" +
+            "Rocketleague: steam: \/\/rungameid/252950 \n" +
+            "Krunker.io: https://krunker.io/ \n" +
+            "Steam version of krunker: steam: \/\/rungameid/1408720")
+        message.channel.send(gamesContent)
+
+    }
+    if (command === "av-server") {
+        var serverIcon = message.guild.iconURL()
+        message.channel.send(serverIcon)
+    }
+    if (command === "serverinfo") {
+
+        var guild = message.guild
+
+        var id = guild.id
+        var name = guild.name
+        var icon = message.guild.iconURL()
+        var region = guild.region
+        var memberCount = guild.memberCount
+        var afkTimeout = guild.afkTimeout
+
+        var afkChannelID = guild.afkChannelID
+        var nameAfkChannel = message.guild.channels.cache.get(afkChannelID)
+
+        var systemChannelID = guild.systemChannelID
+        var nameSystemChannel = message.guild.channels.cache.get(systemChannelID)
+
+        var verificationlevel = guild.verificationLevel
+        var maxiumMembers = guild.maximumMembers
+
+        var rulesChannelID = guild.rulesChannelID
+        var nameRulesChannel = message.guild.channels.cache.get(rulesChannelID)
+
+        var publicUpdatesChannelID = guild.publicUpdatesChannelID
+        var namePublicUpdatesChannel = message.guild.channels.cache.get(publicUpdatesChannelID)
+
+        var prefferedLocale = guild.preferredLocale
+
+
+        const serverEmbed = new Discord.MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle('Serverinfo')
+            .setTimestamp()
+            .setThumbnail(icon)
+            .addFields(
+                { name: 'guildID', value: id, inline: true },
+                { name: 'Guild Name', value: name, inline: true },
+                { name: 'Region', value: region, inline: true },
+                { name: 'Members', value: memberCount, inline: true },
+                { name: 'Afk Timout', value: afkTimeout + "s", inline: true },
+                { name: 'Afk Channel', value: nameAfkChannel, inline: true },
+                { name: 'SystemChannel', value: nameSystemChannel, inline: true },
+                { name: 'verificationlevel', value: verificationlevel, inline: true },
+                { name: 'maxiumMembers', value: maxiumMembers, inline: true },
+                { name: 'Ruleschannel', value: nameRulesChannel, inline: true },
+                { name: 'Staff updates channel', value: namePublicUpdatesChannel, inline: true },
+                { name: 'prefferedLocale', value: prefferedLocale, inline: true },
+            )
+            .setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
+
+        message.channel.send(serverEmbed);
+
+
+
+    }
+    if (command === "snipe") {
+        const fs = require('fs');
+        fs.readFile("./snipe/" + message.guild.id + "/" + message.channel.id + ".txt", 'utf8', function (err, data) {
+            if (err) {
+                message.channel.send("There is nothing to snipe")
+            }
+            else {
+                var string = data,
+                    author = string.split("\n")[0]
+                content = string.slice(author.length)
+
+
+                const snipeEmbed = new Discord.MessageEmbed()
+                    .setColor('#00FF00')
+                    .setTitle(message.author.username + ' sniped ' + author)
+                    .setTimestamp()
+                    .setDescription(author + " said \n" + content)
+                    .setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
+
+                message.channel.send(snipeEmbed);
+            }
+        });
+
+
+
+    }
+    if (command === "nick") {
+        if (!message.guild.me.hasPermission('MANAGE_NICKNAMES')) return message.channel.send('I don\'t have permission to change your nickname!');
+        var id = message.author
+
+        message.member.setNickname(argAll).catch(Error).then(message.channel.send("Your role is to high for me"));
+
+
+
+
+    }
 
 
     if (command === "music" || command === "m") {
+        var musicContent = (settings.prefix + "play <title|URL|subcommand> - plays the provided song. Subcommand: " + settings.prefix + "p \n" +
+            settings.prefix + "skip - Skips the current song \n" +
+            settings.prefix + "stop - Stops playing and clears the queue \n" +
+            settings.prefix + "queue - Shows the current queue. Subcommand: " + settings.prefix + "q \n" +
+            settings.prefix + "remove <position> - Removes a song from the queue. Subcommand: " + settings.prefix + "r \n" +
+            settings.prefix + "volume <new volume> - Changes the volume from 100% to your new volume. Subcommand: " + settings.prefix + "vol \n" +
+            settings.prefix + "loop - Loops the queue. \n" +
+            settings.prefix + "nowplaying - Shows the song that is currently playing. Subcommand: " + settings.prefix + "np \n")
+        settings.prefix + "lyrics - Get the lyrics from a song or from the song currently playing. \n" +
+            settings.prefix + "download - Download a YouTube video."
+
         const musicEmbed = new Discord.MessageEmbed()
             .setColor('#00FF00')
             .setTitle('Music')
             .setTimestamp()
-            .setDescription("\n" + settings.prefix + "play <title|URL|subcommand> - plays the provided song. Subcommand: " + settings.prefix + "p \n" + settings.prefix + "skip - Skips the current song \n" + settings.prefix + "stop - Stops playing and clears the queue \n" + settings.prefix + "queue - Shows the current queue. Subcommand: " + settings.prefix + "q \n" + settings.prefix + "remove <position> - Removes a song from the queue. Subcommand: " + settings.prefix + "r \n" + settings.prefix + "volume <new volume> - Changes the volume from 100% to your new volume. Subcommand: " + settings.prefix + "vol \n" + settings.prefix + "loop - Loops the queue. \n" + settings.prefix + "nowplaying - Shows the song that is currently playing. Subcommand: " + settings.prefix + "np")
+            .setDescription(musicContent)
             .setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
 
         message.channel.send(musicEmbed);
@@ -187,35 +366,40 @@ client.on("message", async (message) => {
         message.channel.send(StopEmbed);
     }
     if (command === "queue" || command === "q") {
+        if (client.player.getQueue(message) != undefined) {
 
+            var queue = (client.player.getQueue(message)).tracks.slice(0, 10);
+            var queue1 = [];
+            queue.forEach(track => {
+                queue1.push(track.title);
+                queue1.push(track.url);
+            });
+            var i;
+            var a = 0
+            var result = ""
+            for (var i = 0; i < queue1.length; i++) {
+                var text = "";
 
-        var queue = (client.player.getQueue(message)).tracks.slice(0, 10);
-        var queue1 = [];
-        queue.forEach(track => {
-            queue1.push(track.title);
-            queue1.push(track.url);
-        });
-        var i;
-        var a = 0
-        var result = ""
-        for (var i = 0; i < queue1.length; i++) {
-            var text = "";
-
-            if (i % 2 == false) {
-                var b = a++
-                var text = b + ": " + "[" + queue1[i] + "]" + "(" + queue1[i + 1] + ")" + "\n"
-                result += text
+                if (i % 2 == false) {
+                    var b = a++
+                    var text = b + ": " + "[" + queue1[i] + "]" + "(" + queue1[i + 1] + ")" + "\n"
+                    result += text
+                }
             }
-        }
-        const queueEmbed = new Discord.MessageEmbed()
-            .setColor('#00FF00')
-            .setTitle('Queue')
-            .setTimestamp()
-        queueEmbed.setDescription(result);
-        queueEmbed.setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
 
-        message.channel.send(queueEmbed);
-        // as we registered the event above, no need to send a success message here
+            const queueEmbed = new Discord.MessageEmbed()
+                .setColor('#00FF00')
+                .setTitle('Queue')
+                .setTimestamp()
+                .setDescription(result)
+                .setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
+
+            message.channel.send(queueEmbed);
+            // as we registered the event above, no need to send a success message here
+        }
+        else {
+            message.channel.send("There is nothing in the queue.")
+        }
     }
     if (command === "remove" || command === "r") {
         var number = parseInt(args)
@@ -297,11 +481,11 @@ client.on("message", async (message) => {
 
 
 
-
+            var progressBar = client.player.createProgressBar(message, { timecodes: true })
+            console.log(progressBar)
             var a = client.player.nowPlaying(message);
             var title = a.title
             var url = a.url
-            var duration = a.duration
             var thumbnail = a.thumbnail
             var author = a.author
             var fromPlaylist = a.fromPlaylist
@@ -315,8 +499,7 @@ client.on("message", async (message) => {
                 .setThumbnail(thumbnail)
                 .addFields(
                     { name: 'Title', value: "[" + title + "]" + "(" + url + ")" },
-                    { name: '\u200B', value: '\u200B' },
-                    { name: 'Duration', value: duration, inline: true },
+                    { name: '\u200b', value: progressBar },
                     { name: "From", value: author, inline: true },
                     { name: "Queue is looped: ", value: loopMode, inline: true }
                 )
