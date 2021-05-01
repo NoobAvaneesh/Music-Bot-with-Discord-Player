@@ -16,20 +16,26 @@ https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&perm
 * Do: `npm i` in the bot folder.
 * Run `node bot.js` in the bot folder.
 
-# commands:
+# MusicCommands:
+* ?!play <title|URL|subcommand> - plays the provided song. Subcommand: ?!p  
+            
+* ?!skip - Skips the current song " +
+            
+* ?!stop - Stops playing and clears the queue " 
+            
+* ?!queue - Shows the current queue. Subcommand: " + ?!q " 
+            
+* ?!remove <position> - Removes a song from the queue. Subcommand: " + ?!r " 
+            
+* ?!volume <new volume> - Changes the volume from 100% to your new volume. Subcommand: " + ?!vol " 
+            
+* ?!loop - Loops the queue. " 
+           
+* ?!nowplaying - Shows the song that is currently playing. Subcommand: " + ?!np " 
+            
+* ?!lyrics - Get the lyrics from a song or from the song currently playing. " 
+            
+* ?!download - Download a YouTube video."
+            
 
-* ?!play [query] --- Plays your song. Supported query types are keywords, YouTube video links, YouTube playlists links, Spotify track link or SoundCloud song link.
-
-* ?!skip --- Skips the current song.
-
-* ?!stop --- Stop playing a song and clears the queue.
-
-* ?!queue --- Shows the current queue.
-
-* ?!remove [number] --- Removes the current queue.
-
-* ?!volume [number] --- Changes the volume from 100% --> [number]. WARNING: YOU CAN EARRAPE.
-
-* ?!loop ---toggles loop for the queue.
-
-* ?!nowplaying or ?!np --- Shows some info about the currrent song.
+            
