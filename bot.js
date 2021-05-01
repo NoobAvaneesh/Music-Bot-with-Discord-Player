@@ -316,16 +316,18 @@ client.on("message", async (message) => {
 
 
     if (command === "music" || command === "m") {
-        var musicContent = (settings.prefix + "play <title|URL|subcommand> - plays the provided song. Subcommand: " + settings.prefix + "p \n" +
+        var musicContent = (
+            settings.prefix + "play <title|URL|subcommand> - plays the provided song. Subcommand: " + settings.prefix + "p \n" +
             settings.prefix + "skip - Skips the current song \n" +
             settings.prefix + "stop - Stops playing and clears the queue \n" +
             settings.prefix + "queue - Shows the current queue. Subcommand: " + settings.prefix + "q \n" +
             settings.prefix + "remove <position> - Removes a song from the queue. Subcommand: " + settings.prefix + "r \n" +
             settings.prefix + "volume <new volume> - Changes the volume from 100% to your new volume. Subcommand: " + settings.prefix + "vol \n" +
             settings.prefix + "loop - Loops the queue. \n" +
-            settings.prefix + "nowplaying - Shows the song that is currently playing. Subcommand: " + settings.prefix + "np \n")
-        settings.prefix + "lyrics - Get the lyrics from a song or from the song currently playing. \n" +
+            settings.prefix + "nowplaying - Shows the song that is currently playing. Subcommand: " + settings.prefix + "np \n" +
+            settings.prefix + "lyrics - Get the lyrics from a song or from the song currently playing. \n" +
             settings.prefix + "download - Download a YouTube video."
+            )
 
         const musicEmbed = new Discord.MessageEmbed()
             .setColor('#00FF00')
