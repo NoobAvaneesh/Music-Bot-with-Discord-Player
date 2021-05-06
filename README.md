@@ -45,7 +45,7 @@ https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&perm
 * ?!playlist - Make or play a playlist made with the aajie bot. 
 * ?!pause - Pauses the queue. 
 * ?!resume - Resumes the queue. 
-* ?!download - Download a YouTube video."
+* ?!download - Download a YouTube video.
             
 
             
