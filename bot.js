@@ -11,15 +11,17 @@ const empty = require('empty-folder');
 
 const Discord = require("discord.js"),
     client = new Discord.Client(),
-    settings = {
+   settings = {
         prefix: "?!",
-        token: "NzU3MTYxODg0NTI4MTQ4NTAw.X2cX9A.me6FAgxMaEV7W9-l-Y6uXU2yvwI",
-        ownerID: "372063501755088896",
-        maxVolume: 300,
-        ip: "https://aajie-vps-my.woutervan17.repl.co",
-        port: 443,
-        guildID: "828624028456583190",
-        categoryID: "839833729031602176"
+         token: "xxxxxxxxx", // "NzU3XXXXXXXXXXXXX.XXXX.XXXXXXXXX"
+        ownerID: "xxxxxxxxx", // "000000000000000000"
+        maxVolume: xxx, // 300 or 500 or 100
+        ip: "xxxxxxxxx", // "https://aajie-vps-my.woutervan17.repl.co"
+        port: 443, // 433 or 80 or 8080 or 8000
+        guildID: "xxxxxxxxx", // "828624028456583190"
+        categoryID: "xxxxxxxxx", //"839833729031602176"
+        botInviteLink: "xxxxxxxxx", // "https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&permissions=8"
+        supportServer: "xxxxxxxxx" //"https://discord.com/invite/5NTcsahFBh"
     };
 
 
@@ -473,13 +475,14 @@ client.on("message", async (message) => {
 
     }
     if (command === "invite") {
-        message.channel.send("Click on the link below to invite this bot to your server. \n https://discord.com/oauth2/authorize?client_id=757161884528148500&scope=bot&permissions=8")
-        message.channel.send("Click on the link below to go to my support guild \n https://discord.com/invite/5NTcsahFBh")
+        message.channel.send("Click on the link below to invite this bot to your server. \n " + settings.botInviteLink)
+        message.channel.send("Click on the link below to go to my support guild \n " + settings.supportServer)
 
     }
 
     if (command === "music" || command === "m") {
-        var musicContent = (settings.prefix + "play <title|URL|subcommand> - plays the provided song. Subcommand: " + settings.prefix + "p \n" +
+        var musicContent = (
+            settings.prefix + "play <title|URL|subcommand> - plays the provided song. Subcommand: " + settings.prefix + "p \n" +
             settings.prefix + "skip - Skips the current song \n" +
             settings.prefix + "stop - Stops playing and clears the queue \n" +
             settings.prefix + "queue - Shows the current queue. Subcommand: " + settings.prefix + "q \n" +
@@ -490,9 +493,10 @@ client.on("message", async (message) => {
             settings.prefix + "lyrics - Get the lyrics from a song or from the song currently playing. \n" +
             settings.prefix + "shuffle - Shuffles the queue. \n" +
             settings.prefix + "back - Plays the previous song \n" +
-            settings.prefix + "playlist - make or play a playlist made with the aajie bot. \n" +
+            settings.prefix + "playlist - Make or play a playlist made with the aajie bot. \n" +
+            settings.prefix + "pause - Pauses the queue. \n" +
+            settings.prefix + "resume - Resumes the queue. \n" +
             settings.prefix + "download - Download a YouTube video."
-
         )
         const musicEmbed = new Discord.MessageEmbed()
             .setColor('#00FF00')
@@ -502,11 +506,6 @@ client.on("message", async (message) => {
             .setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
 
         message.channel.send(musicEmbed);
-
-
-
-
-
     }
     if (command === "play" || command === "p") {
 
