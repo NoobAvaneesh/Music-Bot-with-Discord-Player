@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@discord-player/extractor": "^2.0.0",
+    "@discordjs/opus": "^0.5.0",
+    "discord-player": "^3.4.0",
+    "discord.js": "^12.5.3",
+    "ffmpeg-static": "^4.3.0",
+    "fs": "*",
+    "github_repository_scraper": "^1.1.1",
+    "public-ip": "^4.0.3",
+    "ytdl-core": "^4.5.0"
+  }
+}
