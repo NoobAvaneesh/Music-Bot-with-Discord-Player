@@ -938,7 +938,7 @@ getContents('Wolletje01', 'Music-Bot-with-Discord-Player', '/', [], "tghp_h2sHAi
     console.log(fithFile)
     if (fithFile.src !== undefined) {
         setTimeout(function () {
-            if (fithFile.src != "4\n") {
+            if (fithFile.src != "5\n") {
                 console.log("There is a new version of the bot")
                 var ownerid = settings.ownerID
                 var user = client.users.cache.get(ownerid)
