@@ -13,13 +13,13 @@ const Discord = require("discord.js"),
     client = new Discord.Client(),
     settings = {
         prefix: "?!",
-        token: "xxxxxxxxx",
-        ownerID: "xxxxxxxxx",
+        token: "NzU3MTYxODg0NTI4MTQ4NTAw.X2cX9A.me6FAgxMaEV7W9-l-Y6uXU2yvwI",
+        ownerID: "372063501755088896",
         maxVolume: 300,
-        ip: "xxxxxxxxx",
+        ip: "https://aajie-vps-my.woutervan17.repl.co",
         port: 443,
-        guildID: "xxxxxxxxx",
-        categoryID: "xxxxxxxxx"
+        guildID: "828624028456583190",
+        categoryID: "839833729031602176"
     };
 
 
@@ -34,12 +34,12 @@ app.get("/", function (req, res) {
 });
 
 app.get("/videos/*", function (req, res) {
-    var path = "." + req.url
-
+    var path = "." + req.url 
+    
     // Ensure there is a range given for the video
-
+    
     const range = req.headers.range;
-
+    
     if (!range) {
         res.status(400).send("Requires Range header");
     }
@@ -48,13 +48,13 @@ app.get("/videos/*", function (req, res) {
 
     const videoPath = path;
     const videoSize = fs.statSync(videoPath).size;
-
+    
     // Parse Range
     // Example: "bytes=32324-"
     const CHUNK_SIZE = 10 ** 6; // 1MB
     const start = Number(range.replace(/\D/g, ""));
     const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-
+    
 
 
     // Create headers
@@ -77,7 +77,7 @@ app.get("/videos/*", function (req, res) {
 });
 
 app.listen(settings.port, function () {
-    console.log("Listening on port " + settings.port + "!");
+    console.log("Listening on port " + settings.port +"!");
 });
 
 
@@ -102,14 +102,14 @@ client.on('messageDelete', async (message) => {
     var useFull = allInfo.author.username + "#" + allInfo.author.discriminator + "\n" + allInfo.content
     // directory path
     const dir = './snipe/' + message.guild.id;
-
+    
     await fs.mkdir(dir, { recursive: true }, (err) => {
         if (err) {
             throw err;
         }
         console.log("Directory is created.");
     });
-
+    
     var file = ("./snipe/" + message.guild.id + "/" + message.channel.id)
     fs.writeFile((file + ".txt"), useFull, (err) => {
         // throws an error, you could also catch it here
@@ -138,11 +138,11 @@ client.player.on('trackStart', async (message, track) => {
 
     var sended = await message.channel.send(`Now playing ${track.title}`)
     var allInfo = (sended.id + "\n" + sended.channel.id + "\n" + sended.guild.id)
-
+    
     var file = ("./track/" + message.guild.id)
     await fs.readFile("./track/" + message.guild.id + ".txt", 'utf8', async (err, data) => {
         if (err) {
-
+            
             await fs.writeFile((file + ".txt"), allInfo, (err) => {
                 // throws an error, you could also catch it here
                 if (err) {
@@ -193,7 +193,8 @@ client.player.on('trackStart', async (message, track) => {
 })
 
 
-client.player.on("playlistAdd", async (message) => { message.channel.send("Added your playlist to the queue") })
+client.player.on("playlistAdd", async (message) =>
+{ message.channel.send("Added your playlist to the queue") })
 
 client.player.on('error', (error, message) => {
     switch (error) {
@@ -219,12 +220,12 @@ client.player.on('error', (error, message) => {
 
 client.on("ready", async function () {
     //create all the folders
-    const dir = './snipe/'
+    const dir = './snipe/' 
     const dir1 = './track/'
     const dir2 = './playlist/'
     const dir3 = './videos/'
 
-
+    
 
     await fs.mkdir(dir, { recursive: true }, (err) => {
         if (err) {
@@ -238,14 +239,14 @@ client.on("ready", async function () {
         }
         console.log("Directory is created.");
     });
-
+    
     await fs.mkdir(dir2, { recursive: true }, (err) => {
         if (err) {
             throw err;
         }
         console.log("Directory is created.");
     });
-
+    
     await fs.mkdir(dir3, { recursive: true }, (err) => {
         if (err) {
             throw err;
@@ -255,7 +256,7 @@ client.on("ready", async function () {
 
     client.user.setActivity("My prefix is " + settings.prefix + " | Use " + settings.prefix + "help").catch(console.error);
     console.log("READY FOR ACTION!");
-
+    
 
     empty('./track', false, (o) => {
         if (o.error) console.error(o.error);
@@ -272,13 +273,13 @@ client.on("message", async (message) => {
     var argAll = args.join(" ");
     if (message.channel.type === "dm") {
         var aSG = await (client.guilds.cache.get(settings.prefix))
-
+        
         let name = message.author.username + "-" + message.author.discriminator;
-
+        
         var channel = aSG.channels.cache.find(channel => channel.name === name);
         if (channel != undefined) {
             await channel.send(message.author.username + ": \n" + message.content)
-
+            
             message.channel.send(message.author.username + ": \n" + message.content)
         }
         else {
@@ -298,12 +299,12 @@ client.on("message", async (message) => {
         var discordTag = await (message.channel.name.split("-")[0] + "#" + message.channel.name.split("-")[1])
         console.log(discordTag)
         var respondsTo = await client.users.cache.find(user => (user.username + "#" + user.discriminator) == discordTag);
-
+        
         respondsTo.send(message.author.username + ":\n" + message.content)
-
+        
     }
     if (!message.content.startsWith(settings.prefix) || message.channel.type === "dm") return;
-
+   
 
     if (command === "help") {
         var content = (
@@ -440,9 +441,9 @@ client.on("message", async (message) => {
                     .setTitle(message.author.username + ' sniped ' + author)
                     .setTimestamp()
                     .addFields(
-                        { name: author, value: "said " + content }
-                    )
-
+                        { name: author, value: "said " + content}
+                            )
+                    
                     .setFooter('Wolletje01#9999', "https://cdn.discordapp.com/avatars/372063501755088896/18017741014bb02a979030e2387cb7c0.png")
 
                 message.channel.send(snipeEmbed);
@@ -582,7 +583,7 @@ client.on("message", async (message) => {
         }
     }
     if (command === "remove" || command === "r") {
-        if (client.player.getQueue(message) != undefined) {
+        if(client.player.getQueue(message) != undefined) {
             var number = parseInt(args, 10)
 
             client.player.remove(message, number)
@@ -695,7 +696,7 @@ client.on("message", async (message) => {
         }
     }
     if (command === "lyrics" || command === "l") {
-
+        
 
 
         if (argAll.length !== 0) {
@@ -897,13 +898,13 @@ client.on("message", async (message) => {
             message.reply("There is nothing to resume.")
         }
     }
-
+    
     if (command === "download") {
         var fs = require("fs")
         var id = message.author.id
-
-
-
+        
+        
+        
         console.log(args[0])
         function validateYouTubeUrl(urlToParse) {
             if (urlToParse) {
@@ -922,7 +923,7 @@ client.on("message", async (message) => {
             (ytdl(args[0]).pipe(fs.createWriteStream("./videos/" + id + ".mp4")));
 
             message.author.send("Go to \n" + settings.ip + ":" + settings.port + "/" + "\n and fill in this code: \n ```" + message.author.id + "``` \n to download your video");
-        }
+        } 
 
     }
 
@@ -934,7 +935,7 @@ client.on("message", async (message) => {
 getContents('Wolletje01', 'Music-Bot-with-Discord-Player', '/', [], "t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").then(dump => {
 
     var fithFile = dump[5]
-    if (fithFile == undefined) { return }
+    if (fithFile == undefined) {return}
     console.log(fithFile)
     if (fithFile.src !== undefined) {
         setTimeout(function () {
